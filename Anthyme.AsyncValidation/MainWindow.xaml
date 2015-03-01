@@ -1,0 +1,24 @@
+﻿<Window x:Class="Anthyme.AsyncValidation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" 
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid DataContext="{Binding UserInput, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+        <StackPanel Margin="3">
+            <TextBox Text="{Binding UserName, ValidatesOnNotifyDataErrors=True}"/>
+            <TextBox Text="{Binding Email, ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Text="{Binding RepeatEmail, ValidatesOnNotifyDataErrors=True}" />
+        </StackPanel>
+    </Grid>
+</Window>
